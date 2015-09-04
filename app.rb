@@ -89,3 +89,8 @@ JSON.parse(Net::HTTP.get_response(uri).body).each do |u|
   )
 end
 
+get '/' do
+  # there has got to be a cleaner way to do this, and remove IDs from json
+  @users = JSON.parse(User.all.to_json(:include => [:company, :address => {:include => :geo}]))
+  haml :index
+end
