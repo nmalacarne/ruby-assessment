@@ -10,5 +10,7 @@ to see details for each. No special requirements for the UI.
 
 # Setup
 Requires Ruby v2.2.1
+
 `bundle install`
+
 `ruby app.rb`
