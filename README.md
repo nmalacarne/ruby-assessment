@@ -14,3 +14,6 @@ Requires Ruby v2.2.1
 `bundle install`
 
 `ruby app.rb`
+
+> NOTE: The database will be created in /db/, and will be deleted and recreated everytime 
+> the script is run.
