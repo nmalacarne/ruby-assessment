@@ -1,12 +1,20 @@
 require 'active_record'
 require 'sqlite3'
+require 'sinatra'
+require 'haml'
 require 'uri'
 require 'net/http'
 require 'json'
 
+# wipe our database everytime the script is run
+if File.exists?('./db/data.sqlite3') then
+  File.delete('./db/data.sqlite3')
+end
+
 ActiveRecord::Base.logger = Logger.new(STDERR)
 
-ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
+# was going to use memory, but routes cant see database (on seperate process?)
+ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => './db/data.sqlite3')
 
 ActiveRecord::Schema.define do
   create_table :users do |t|
