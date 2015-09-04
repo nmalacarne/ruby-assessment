@@ -1,5 +1,5 @@
 # ruby-assessment
-A simple assessment of my Ruby skills
+An assessment of my Ruby skills
 
 # Requirements
 Create a program that pulls data from this call: http://jsonplaceholder.typicode.com/users
