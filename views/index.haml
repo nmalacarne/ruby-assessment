@@ -1,1 +1,13 @@
-%h1 Test
+%head
+  %link{:rel => :stylesheet,
+        :type => 'text/css',
+        :href => 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css'}
+%body
+  %script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+  %script(src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js')
+  %script(src='https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation/foundation.accordion.min.js')
+
+  :javascript
+    $(document).ready(function () {
+      $(document).foundation();
+    });
