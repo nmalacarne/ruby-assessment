@@ -1,5 +1,8 @@
 require 'active_record'
 require 'sqlite3'
+require 'uri'
+require 'net/http'
+require 'json'
 
 ActiveRecord::Base.logger = Logger.new(STDERR)
 
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define do
   end
 
   create_table :geos do |t|
-    t.column :address_it, :integer
+    t.column :address_id, :integer
     t.column :lat, :string
     t.column :lng, :string
   end
@@ -53,3 +56,36 @@ end
 class Company < ActiveRecord::Base
   belongs_to :user
 end
+
+# pull down dummy json
+uri = URI.parse('http://jsonplaceholder.typicode.com/users')
+
+# 'seed' db
+JSON.parse(Net::HTTP.get_response(uri).body).each do |u|
+  user = User.create(
+    :name     => u['name'],
+    :username => u['username'], 
+    :email    => u['email'],
+    :phone    => u['phone'],
+    :website  => u['website']
+  ) 
+
+  user.create_company(
+    :name         => u['company']['name'],
+    :catchPhrase  => u['company']['catchPhrase'],
+    :bs           => u['company']['bs']
+  )
+
+  address = user.create_address(
+    :street   => u['address']['street'],
+    :suite    => u['address']['suite'],
+    :city     => u['address']['city'],
+    :zipcode  => u['address']['zipcode']
+  )
+
+  address.create_geo(
+    :lat  => u['address']['geo']['lat'],
+    :lng  => u['address']['geo']['lng']
+  )
+end
+
